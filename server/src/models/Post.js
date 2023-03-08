@@ -6,7 +6,7 @@ const postSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        fistName: {
+        firstName: {
             type: String,
             required: true,
         },
@@ -25,11 +25,9 @@ const postSchema = mongoose.Schema(
         comments: {
             type: Array,
             default: [],
-        }
+        },
     },
-    {
-        timestamps: true,
-    }
+    { timestamps: true }
 );
 
 const Post = mongoose.model("Post", postSchema);
