@@ -12,6 +12,6 @@ const router = express.Router();
 router.get("/",  authMiddleware, getFeedsPosts);
 router.get("/:id", authMiddleware, getPost);
 router.get("/user/:id", authMiddleware, getUserPosts);
-router.put("like/:id/:userId", authMiddleware, likePost);
+router.put("/like/:id/:userId", authMiddleware, likePost);
 
 export default router;
