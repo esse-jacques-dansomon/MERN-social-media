@@ -7,13 +7,18 @@ import multer from "multer";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
-import { fileURLToPath } from 'url';
-import {register } from './src/controllers/auth.controller.js';
-import {createPost } from './src/controllers/post.controller.js';
+import {fileURLToPath} from 'url';
+import {register} from './src/controllers/auth.controller.js';
+import {createPost} from './src/controllers/post.controller.js';
 import authRoutes from './src/routes/auth.routes.js';
 import userRoutes from './src/routes/user.routes.js';
 import postRoutes from './src/routes/post.routes.js';
-import {authMiddleware} from "./src/middleware/auth.middleware.js";
+import user from "./src/models/User.js";
+import Post from "./src/models/Post.js";
+
+import {users, posts} from "./src/data/fake.data.js";
+import User from "./src/models/User.js";
+
 
 /*CONFIGURATIONS*/
 
@@ -29,17 +34,17 @@ app.use(express.json());
 //use the helmet package to secure the app by setting various HTTP headers
 app.use(helmet());
 //use the helmet package to secure the app by setting various HTTP headers
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin"}));
+app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 //use the morgan package to log HTTP requests
 app.use(morgan("common"));
 //use the body-parser package to parse the request body
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.json({limit: "30mb", extended: true}));
 //use the body-parser package to parse the request body
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 //use the cors package to allow cross-origin requests
 app.use(cors());
 //use the express app to serve static files from the public folder
-app.use("/static",express.static(path.join(__dirname, 'public/assets')));
+app.use("/static", express.static(path.join(__dirname, 'public/assets')));
 
 
 //FILE STORAGE
@@ -51,8 +56,7 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-const upload = multer({ storage: storage });
-
+const upload = multer({storage: storage});
 
 
 /*ROUTES WITH POSTS*/
@@ -72,5 +76,10 @@ mongoose.connect(process.env.MONGO_URL,
         useNewUrlParser: true,
         useUnifiedTopology: true
     }
-).then(() => app.listen(PORT, () => console.log(`Server running on port: ${PORT}`)))
-.catch((error) => console.log(error.message));
+).then(() => {
+    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+    // fake data
+    // User.insertMany(users);
+    // Post.insertMany(posts);
+    console.log("Connected to MongoDB");
+}).catch((error) => console.log(error.message));
