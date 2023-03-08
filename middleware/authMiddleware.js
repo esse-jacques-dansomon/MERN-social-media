@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const authMiddle = async (req, res, next) => {
+export const authMiddleware = async (req, res, next) => {
     try {
         let token = req.header("Authorization");
         if (!token) return res.status(400).json({msg: "Invalid Authentication."});
