@@ -13,11 +13,7 @@ import {createPost} from './src/controllers/post.controller.js';
 import authRoutes from './src/routes/auth.routes.js';
 import userRoutes from './src/routes/user.routes.js';
 import postRoutes from './src/routes/post.routes.js';
-import user from "./src/models/User.js";
-import Post from "./src/models/Post.js";
 
-import {users, posts} from "./src/data/fake.data.js";
-import User from "./src/models/User.js";
 
 
 /*CONFIGURATIONS*/
