@@ -2,7 +2,6 @@ import storage from "redux-persist/lib/storage"
 import authSlice from "./slices/auth.slice";
 import {configureStore} from "@reduxjs/toolkit";
 import {
-    persistStore,
     persistReducer,
     FLUSH,
     REHYDRATE,
@@ -27,6 +26,4 @@ const store = configureStore({
         }),
 })
 
-const  persistor = persistStore(store)
-
-module.exports = {store, persistor}
+export default store
